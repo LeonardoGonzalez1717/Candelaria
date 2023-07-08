@@ -1,0 +1,111 @@
+/* body {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    background-color: #1b1b32;
+    color: #f5f6f7;
+    font-family: Tahoma;
+    font-size: 16px;
+} */
+
+#nav-bar{
+    background-color: gray;
+    /* height: 50px; */
+    border-radius: 7px;
+    text-align: right;
+    padding: 20px;
+
+}
+
+#nav-bar a{
+    text-decoration: none;
+    color: black;
+}
+h1, p {
+    margin: 1em auto;
+    text-align: center;
+}
+
+form {
+    width: 60vw;
+    max-width: 500px;
+    min-width: 300px;
+    margin: 0 auto;
+    padding-bottom: 2em;
+}
+
+#register{
+    border: 1px solid black;
+    padding: 30px;
+
+}
+
+fieldset {
+    border: none;
+    padding: 2rem 0;
+    /* border-bottom: 3px solid #3b3b4f; */
+}
+    /* El borde del último elemento fieldset se ve un poco fuera de lugar. Puedes seleccionar el último elemento de un tipo específico utilizando la pseudo-clase CSS last-of-type, de esta manera:
+
+p:last-of-type { } */
+
+fieldset:last-of-type {
+    border-bottom: none;
+}
+
+label {
+    display: block;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+  /* si coloco los formularios con 100% del ancho del elemento padre, ya quedan piola */
+
+input,
+textarea,
+select {
+    margin: 10px 0 0 0;
+    width: 100%;
+    min-height: 2em;
+}
+
+input, textarea {
+    /* background-color: #0a0a23; */
+    border: 1px solid #0a0a23;
+    /* color: #ffffff; */
+}
+
+  /* Selecciona solos los elementos .inline, y dales un width de unset. Esto eliminará la regla anterior que establece que todos los input tengan un width: 100%. */
+
+.inline {
+    width: unset;
+    margin: 0 0.5em 0 0;
+    vertical-align: middle;
+}
+
+
+/* Para dar estilo al botón de envío, puede utilizar un selector de atributos (attribute), que selecciona un elemento basado en el valor del atributo dado. Aquí hay un ejemplo:
+
+input[name="password"] */
+input[type="submit"] {
+    display: block;
+    width: 60%;
+    margin: 1em auto;
+    height: 2em;
+    font-size: 1.1rem;
+    /* background-color: #3b3b4f; */
+    border-color: white;
+    min-width: 300px;
+}
+
+input[type="file"] {
+    padding: 1px 2px;
+}
+
+a{
+    color: #dfdfe2;
+}
+
+
+
+
