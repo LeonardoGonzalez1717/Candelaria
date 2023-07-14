@@ -186,16 +186,18 @@ function conseguirAno($conexion, $ero = null, $do = null, $tro= null, $to = null
 
         }
 
-        function existeNota($db, $id_alumno, $id_materia){
-            $sql = "select nota, lapso from notas where id_materia = '$id_materia' and id_alumno = '$id_alumno'";
+        function existeNota($db, $id_alumno, $id_pensum){
+            $sql = "select * from notas where id_pensum = '$id_pensum' and id_alumno = '$id_alumno'";
             $guardar = mysqli_query($db, $sql);
             $resultado = array();
             //si devuelve una fila significa que la nota ya es
-            if ($guardar == true) {
+            if ($guardar == true && mysqli_num_rows($guardar) >= 1) {
                 $resultado = $guardar;
             }
             return $resultado;
         }
+    
+        
 ?>
 
 

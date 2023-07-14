@@ -97,8 +97,8 @@ if (isset($_POST['materia']) && isset($_POST['ano'])  && isset($_POST['filas']) 
                                         <td><?= $alumno['cedula'] ?></td>
                                                 
                                                 <?php
-                                            if(existeNota($db, $alumno['id_alumno'], $materia) > 0) {
-                                                $notas_total = "select notas.id, notas.nota, notas.lapso, pensum.id_materia from notas inner join pensum on notas.id_pensum = pensum.id where notas.id_alumno = ".$alumno['id_alumno']." and pensum.id_materia = ".$materia;
+                                            if(existeNota($db, $alumno['id_alumno'], $guardado['id'])){
+                                                $notas_total = "select notas.id, notas.nota, notas.lapso, pensum.id_materia from notas inner join pensum on notas.id_pensum = pensum.id where notas.id_alumno = ".$alumno['id_alumno']." and pensum.id_materia = $materia";
                                                 $notas = mysqli_query($db, $notas_total);
                                                  
                                                 while($nota = mysqli_fetch_assoc($notas)){
@@ -117,12 +117,13 @@ if (isset($_POST['materia']) && isset($_POST['ano'])  && isset($_POST['filas']) 
                                                     }
                                                     
                                                 }else{
-                                                    echo 'culo';
-
+                                                    
                                                     for($i = 1; $i <= $f; $i++){
-                                                        echo '<td><input type="number" maxlength="5" name="evaluacion"></td>';  
+                                                        echo '<td><input type="number" maxlength="5" name="evaluacion" min="0" max="20"></td>';  
                                                     }
+                                                    
                                                 }
+                                            
                                              ?>
                                                 
                                                 <td><input type="number" name="lapso" value="<?=$lapso?>"></td>   
