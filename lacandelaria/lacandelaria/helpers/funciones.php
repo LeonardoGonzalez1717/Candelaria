@@ -171,32 +171,20 @@ function conseguirAno($conexion, $ero = null, $do = null, $tro= null, $to = null
 
         }
 
-        function Nonotas($conexion, $ano, $materia){
-            $sql = "SELECT c.id_cu, a.nombre, a.cedula, a.apellido, c.id_alumno, p.id_ano, p.id_materia from cursando c  inner join alumno a on c.id_alumno = a.id  inner join pensum p on n.id_pensum = p.id where p.id_materia = $materia and p.id_ano = $ano";
-            $guardar = mysqli_query($conexion, $sql);
-
-            $resultado = array();
-
-            if ($guardar == true && mysqli_num_rows($guardar) >=1) {
-                $resultado = $guardar;
-            }else{
-                echo 'error';
-            }
-            return $resultado;
-
-        }
+       
 
         function existeNota($db, $id_alumno, $id_pensum){
             $sql = "select * from notas where id_pensum = '$id_pensum' and id_alumno = '$id_alumno'";
             $guardar = mysqli_query($db, $sql);
             $resultado = array();
             //si devuelve una fila significa que la nota ya es
-            if ($guardar == true && mysqli_num_rows($guardar) >= 1) {
+            if ($guardar == true && mysqli_num_rows($guardar) > 0) {
                 $resultado = $guardar;
             }
             return $resultado;
         }
-    
+        
+       
         
 ?>
 

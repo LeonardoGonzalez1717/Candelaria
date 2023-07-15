@@ -4,7 +4,7 @@ if (isset($_GET['id'])) {
     
     $codigo = $_GET['id'];
 }
-$sql = "select p.id_ano, p.id_materia, m.materia from pensum p inner join materia m on p.id_materia = m.id where p.id_ano = $codigo";
+$sql = "select p.id, p.id_ano, p.id_materia, m.materia from pensum p inner join materia m on p.id_materia = m.id where p.id_ano = $codigo";
 $guardar = mysqli_query($db, $sql);
 
 ?>

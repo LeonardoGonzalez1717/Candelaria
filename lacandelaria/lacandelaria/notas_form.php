@@ -1,26 +1,31 @@
-<?php 
+<?php  
 require_once 'model/conexion.php';
+require_once 'helpers/funciones.php';
 session_start();
+
 $materia = $_POST['materia'];
 $ano = $_POST['ano'];
+
+if ($_POST['pensum']) {
+    $pensum = $_POST['pensum'];
+    
+}
+//convirtiendo string en enteros
+$cantidad = (int)$_POST['cantidad_notas'];
+$lapso = (int)$_POST['lapso'];
+if (isset($_POST['idnota'])) {
+    $idnota = $_POST['idnota'];
+    
+}
 
 $url = "notas_view.php";
 $url .= "?materia=" .urlencode($materia);
 $url .= "&ano=" .urlencode($ano);
-
-if (!empty($_POST['nota']) && !empty($_POST['lapso']) ) {
-        //convirtiendo string en enteros
-        $nota = (int)$_POST['nota'];
-        $lapso = (int)$_POST['lapso'];
+$url .= "&lapso=" .urlencode($lapso);
+$url .= "&filas=" .urlencode($cantidad);
 
    
-    if (is_integer($nota) && preg_match('/^[0-9]+$/',$nota) ) {
-        $nota_validada = $nota;
-        
-    }else{
-        $_SESSION['guardado']['error'] = 'La nota solamente debe contener numeros ';
-    } 
-    if (is_integer($lapso) && preg_match('/^[0-9]+$/',$lapso) ) {
+    if (isset($lapso)) {
         $lapso_validada = $lapso;
         
     }else{
@@ -37,8 +42,34 @@ if (!empty($_POST['nota']) && !empty($_POST['lapso']) ) {
     }else{
         echo 'error4';
     }
-    $sql = "insert into notas values(null, '$alumno', '$pensum', '$nota_validada', '$lapso_validada')";
-    $guardar = mysqli_query($db, $sql);
+    
+
+    
+           
+            if (existeNota($db, $alumno, $pensum)) {
+            
+        
+       
+                for($i = 1; $i <= $cantidad; $i++){
+
+                  $idnota_total = $_POST['idnota'.$i];
+                  $nota_total = $_POST['nota'.$i];
+
+                  $sql = "update notas set id_alumno = '$alumno',id_pensum = '$pensum',nota = '$nota_total', lapso = '$lapso_validada' where id = '$idnota_total'";
+                  $guardar = mysqli_query($db, $sql);
+                  }
+               
+            }else{
+                for ($i=1; $i<=$cantidad; $i++) { 
+                   $nota_total = $_POST['nota'.$i]; 
+                    
+                    $sql = "insert into notas values(null, '$alumno', '$pensum', '$nota_total', '$lapso_validada')";
+                    $guardar = mysqli_query($db, $sql);
+                }
+
+        }
+        
+    
 
     if ($guardar == true) {
         $_SESSION['guardado']['exito'] = 'Nota registrada';
@@ -50,11 +81,6 @@ if (!empty($_POST['nota']) && !empty($_POST['lapso']) ) {
         exit();
     }
     
-}else{
-    $_SESSION['guardado']['error'] = 'La nota no puede estar vacio';
-    header('location: ' . $url);
-    exit();
-}
 
 ?>
 
