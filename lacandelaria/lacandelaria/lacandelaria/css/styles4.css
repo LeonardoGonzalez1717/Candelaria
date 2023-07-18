@@ -1,0 +1,360 @@
+/* ! Estilos generales */
+::-webkit-input-placeholder { color: white; } /* WebKit */
+::-moz-placeholder { color: white; } /* Firefox 19+ */
+
+:root{
+    --blue: rgba(18, 48, 118, 0.8);
+    --white: white;
+    --btn1: #44f8fe;
+    --btn2: #FF7594;
+    --btn3: #1d8154;
+    --btn4: #FFB100;
+    --btn5: #2EAA83;
+    --btn6: #D86DFF;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;    
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #ffffff;  /* fallback for old browsers */
+    /* background-color: #3B304B; */
+}
+
+
+
+
+/* ! Header */
+
+
+header{
+    background: linear-gradient(rgba(25, 118, 210, 0.78), rgba(25, 118, 210, 0.78)), url(http://static.laverdad.com/images/2017/octubre/31/130021b.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100px;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+}
+
+header h1{
+    font-size: 35px;
+    font-weight: bold;
+}
+
+
+/* ! Barra de navegacion */
+
+nav{
+    width: 100%;
+    height: 60px;
+    margin-bottom: 100px;
+    margin-top: 40px;
+}
+
+nav ul{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+nav ul li{
+    list-style: none;
+    transition: all 500ms;
+}
+
+nav ul li a{
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 20px;
+    background-color: #5e4680;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 300ms;
+}
+
+nav ul li:hover a{
+        background-color: #468054;
+    }
+
+nav ul li a:hover{
+    color: var(--white);
+}
+
+nav ul #form-nav{
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+nav form input,
+nav form button{
+    color: var(--white);
+    background-color: #5e4680;
+    padding: 10px;
+    border: rgba(175, 175, 175, 0.268) 1px solid;
+    outline: none;
+}
+
+nav form button{
+    font-weight: 600;
+    background-color: transparent;
+    border: #5e4680 1px solid;
+    color: #5e4680;
+    transition: all 300ms;
+}
+nav form button:hover{
+    background-color: #5e4680;;
+    color: var(--white);
+}
+
+
+
+/* ! Contenido principal */
+
+
+main{
+    width: 100%;
+    height: auto;
+    display: grid;
+    place-items: center;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    height: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 150px;
+}
+
+/* ! botones  */
+.squares{
+    width: 310px;
+    height: 250px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.square1,
+.square2,
+.square3,
+.square4,
+.square5,
+.square6{
+    background-color: #6476a6;
+    position: relative;
+    border-radius: 10px;
+}
+
+#content{
+    position: absolute;
+    z-index: 3;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s;
+    
+}
+
+#content i{
+    font-size: 80px;
+    transition: all 1s;
+}
+
+.square1:hover #content,
+.square2:hover #content,
+.square3:hover #content,
+.square4:hover #content,
+.square5:hover #content,
+.square6:hover #content{
+    height:70px;
+    width: 70px;
+    position: absolute;
+    transform: translate(0px, 0px);
+    border-radius: 50%;
+}
+
+.square1:hover #content i,
+.square2:hover #content i,
+.square3:hover #content i,
+.square4:hover #content i,
+.square5:hover #content i,
+.square6:hover #content i{
+    font-size: 35px;
+}
+
+#background{
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    /* position: relative;   */
+
+}
+
+#background #text{
+    width: 80%;
+    
+    bottom: 40px;
+    transform: scale(0);
+    transition: all 500ms;
+    transition-delay: 0.2s;
+}
+
+#background #text form input[ type="submit"]{
+    background: none;
+    border: none;
+    text-decoration: underline;
+}
+
+
+.square1:hover #background #text,
+.square2:hover #background #text,
+.square3:hover #background #text,
+.square4:hover #background #text,
+.square5:hover #background #text,
+.square6:hover #background #text{
+    transform: scale(1);
+}
+
+.square1 #content{
+    background-color: var(--btn1);
+}
+
+.square2 #content{
+    background-color: var(--btn2);
+}
+
+.square3 #content{
+    background-color: var(--btn3);
+}
+
+.square4 #content{
+    background-color: var(--btn4);
+}
+
+.square5 #content{
+    background-color: var(--btn5);
+}
+
+.square6 #content{
+    background-color: var(--btn6);
+}
+
+@media (max-width: 1400px) {
+    .squares{
+        width: 310px;
+        height: 310px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
+}
+
+
+/* ! Footer */
+footer{
+    /* margin-top: 300px; */
+    display: flex;
+    background-color: #1976D2;
+    width: 100%;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    /* position: absolute;
+    bottom: -1000; */
+}
+
+footer h3, footer h4{
+    padding: 15px;
+    margin: 0;
+    color: var(--white);
+    font-size: 20px;
+
+}
+
+
+#background #text{
+    position: inherit;
+
+}
+
+#background {
+    
+    justify-content: end;
+}
+ 
+
+#register{
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+    gap: 30px;
+    margin-bottom: 100px;
+    border: 2px solid #1976d29c;
+    border-radius: 10px;
+}
+
+#register label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#register label::after{
+    content: '';
+    width: 90%;
+    height: 1px;
+    margin-top: 20px;
+    background-color: black;
+}
+
+#register label input{
+    width: 50%;
+    outline: none;
+    border-radius: 3px;
+    padding: 0px 5px;
+}
+
+#register #submitForm{
+    background-color: #1976D2 !important;
+    
+    border-radius: 10px;
+    color: white;
+    transition: all 500ms;
+}
+
+#register #submitForm:hover{
+    background-color: #07498c !important;
+}
