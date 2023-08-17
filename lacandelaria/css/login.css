@@ -1,0 +1,134 @@
+.form_container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: rgba(58, 151, 244, 0.78);
+}
+
+.form_container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  /* gap: 30px; */
+  background-color: rgb(224, 224, 224);
+  width: 30%;
+  height: 70%;
+  border-radius: 10px;
+  /* box-shadow: 0px 0px 40px rgba(19, 15, 15, 0.689); */
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.689);
+  border: 1px solid rgba(0, 0, 0, 0.107);
+}
+
+.form_container form h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.group {
+  position: relative;
+}
+
+.input {
+  font-size: 16px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid #515151;
+  background: transparent;
+}
+
+.input:focus {
+  outline: none;
+}
+
+label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.input:focus ~ label,
+.input:valid ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: rgba(25, 118, 210, 0.78);
+}
+
+.bar {
+  position: relative;
+  display: block;
+  width: 200px;
+}
+
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: rgba(25, 118, 210, 0.78);
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+.input:focus ~ .bar:before,
+.input:focus ~ .bar:after {
+  width: 50%;
+}
+
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.input:focus ~ .highlight {
+  animation: inputHighlighter 0.3s ease;
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+input[type="submit"] {
+  border: 2px solid rgba(25, 118, 210, 0.78);
+  background-color: white;
+  padding: 5px 25px;
+  border-radius: 15px;
+  transition: background-color 300ms;
+}
+input[type="submit"]:hover {
+  background-color: rgba(25, 118, 210, 0.78);
+}

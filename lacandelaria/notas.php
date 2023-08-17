@@ -1,76 +1,58 @@
-<?php 
-include_once 'templeat/header.php';
-?>
-<div class="container mt-2" style="height: 500px;  position: relative;">
-    
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card hola">
-                <div class="card-header">
-                    
-                    
-                 Lista de estudiantes
+<?php include_once 'templeat/header.php';
+if (!isset($_SESSION['usuario_admin']) && !isset($_SESSION['usuario_lector'])) {
+    $_SESSION['alertas'] = 'Por favor introducir un usuario';
+    header('location: login_form.php');
+}
+if (isset($_GET['id'])) {
+    //trae las materias que trae el año
+    $codigo = $_GET['id'];
+    $sql = "select p.id, p.id_ano, p.id_materia, m.materia from pensum p inner join materia m on p.id_materia = m.id where p.id_ano = $codigo";
+    $guardar = mysqli_query($db, $sql);
+}
 
-                </div>
-                <div class="p-4">
-                    <div class="">
-                        <table class="table align-middle ">
-                            <thead style="position: inherit;">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Apellido</th>
-                                    <th scope="col">Cedula</th>
-                                    <th scope="col" colspan="3">Notas</th>
-                                    <th scope="col">Enviar</th>
-                                    
-                                </tr>
-                                    
-                            </thead>
-                            <tbody>
-                            <?php $alumnos = conseguirAlumno($db); 
-                                if (!empty($alumnos)):
-                                    while ($alumno = mysqli_fetch_assoc($alumnos)):
-
-                                       
-                        ?>
-                            <form action="administrar.php" method="POST">
-                                <tr class="">
-                                    <td scope="row"><?= $alumno['id'] ?></td>
-                                    <td><?= $alumno['nombre']?></td>
-                                    <td><?= $alumno['apellido'] ?></td>
-                                    <td><?= $alumno['cedula'] ?></td>
-                                    <?php $nota = Nonotas($db); 
-                                
-                                    while ($notas = mysqli_fetch_assoc($nota)){
+if (isset($_SESSION['alerta']['plan'])): ?>
+    <div class="alert alert-danger" role="alert">
+    <?php echo $_SESSION['alerta']['plan']; ?>
+  </div>
+  
+<?php   endif;?>
+<h2>Registro de notas</h2>
+    <form method="POST" action='notas_view.php' id="register">
+        <label for="first-name">Seleccionar la materia
+        <select name="materia" id="" class="select">
+                                        <?php 
+                                        if(!empty($guardar)):
+                                            while ($guardado = mysqli_fetch_assoc($guardar)):
+                                        ?>
+                                            <option value="<?=$guardado['id_materia']?>"><?=$guardado['materia']?></option>`
+                                            
+                                            <?php 
+                                        endwhile;
+                                    endif;
                                     ?>
-                                    <td><input name="nota" value="<?=$notas['nota']?>"> </input></td>
-                                    <?php  } ?>
-                                    <input type="hidden" name="estudiante" value="<?=$alumno['id']?>">
-                                    <td><input type="submit"></td>
-                                </tr>
-                            </form>
-                                <?php
-                                endwhile;
-                             endif; 
-
-                                
-                             ?>        
-
-                                    
-                               
-                                
-                            </tbody>
-
-                        </table>
-                    </div>
+                                        </select>
+        </label>
             
-                </div>
-            </div>
+       
+       
+        </label>
+
+        <label for="age">Lapso   
+            <select name="lapso" class="select">
+                <option value="1">Lapso 1 </option>
+                <option value="2">Lapso 2 </option>
+                <option value="3">Lapso 3 </option>
+            </select>
         
-        </div>
-    </div>
-</div>
+        </label>
+        
+                                    <input type="hidden" name="ano" value="<?=$codigo?>">
+            <input type="submit" value="Registrar" id="submitForm" />
+           
+    </form> 
+                    
+               
+                               
 
 <?php
 include_once 'templeat/footer.php'; 

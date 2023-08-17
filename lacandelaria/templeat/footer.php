@@ -4,11 +4,10 @@
         </a>
         <h4>Made by &copy; Leonardo</h4>
     </footer>
-
-    <script src="https://kit.fontawesome.com/5818af7131.js" crossorigin="anonymous"></script>
+    
+    
+    
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="js/script.js"></script>
-   
+    <!-- <script src="js/script.js"></script> -->
 </body>
-
 </html>

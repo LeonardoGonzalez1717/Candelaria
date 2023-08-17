@@ -9,7 +9,8 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/form.css">
+    <link rel="stylesheet" type="text/css" href="css/formulario.css">
+    
     
     <title>La Candelaria</title>
     <!-- Bootstrap CSS v5.2.1 -->
@@ -17,24 +18,59 @@ session_start();
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">  
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> 
-    <link rel="stylesheet" type="text/css" href="css/tabla2.css">
+    <link rel="stylesheet" type="text/css" href="css/tabla4.css">
     <link rel="stylesheet" type="text/css" href="css/styles3.css">
+    <script src="https://kit.fontawesome.com/5818af7131.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="css/boton2.css"> -->
+   
+    
 </head>
-<body style="height: 500px;">
+<body >
     
         <header>
-            <h1>U.E.P A.P.E.P "La Candelaria"</h1>
+            <h1>U.E.P A.P.E.P "La Candelaria"  <?=$_SESSION['periodos']['periodo']  ?></h1>
+            <?php if(isset($_SESSION['usuario_admin'])): ?>
+                <p>Bienvenido <?=$_SESSION['usuario_admin']['nombre']?></p>
+            <?php else: ?>
+                <p>Bienvenido <?=$_SESSION['usuario_lector']['nombre']?></p>
+            <?php endif; ?>
+                <div class="buttons-container">
+                    
+                   <a class="Btn" href="logout.php">
+                   <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+
+                    
+                <a href="admin.php" class="cssbuttons-io-button">
+                <i class="fa-solid fa-user"></i>
+                </a>
+            
+                </div>
+                
+
         </header>
 
          <nav>
             <ul>
-                <li><a href="index.php">Inicio</a></li>
-                <li><a href="estudiantes.php">Estudiantes</a></li>
-                <li><a href="registrar_form.php">Registrar </a></li>
-                <li><a href="administrar_E.php">Administrar Alumnos</a></li>
-                <li><a href="notas.php">Notas Estudiantes</a></li>
-                   
-            </ul>
+                <li><a class="listas" href="index.php">Inicio</a></li>
+                <li><a class="listas" href="estudiantes.php">Estudiantes</a></li>
+                <?php if(isset($_SESSION['usuario_admin'])): ?>
+                <li><a class="listas" href="registrar_form.php">Registrar </a></li>
+                <li><a class="listas" href="administrar_E.php">Administrar Alumnos</a></li>
+                <?php endif; ?>
+                <li><a class="listas" href="periodos.php">Periodos</a></li>
+            
+                
+                
+                
+
+               
+
+
+
+               
+              
+              
         </nav>
 
 

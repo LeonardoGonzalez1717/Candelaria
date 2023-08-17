@@ -1,14 +1,36 @@
 <?php 
 require_once 'templeat/header.php'; 
+if (!isset($_SESSION['usuario_admin']) && !isset($_SESSION['usuario_lector'])) {
+    $_SESSION['alertas'] = 'Por favor introducir un usuario';
+    header('location: login_form.php');
+}
 ?>
-<body>
-
-    <div class="loader-container">
-        <div class="loader">
-
-        </div>
-    </div>
     <main>
+        <!-- momentaneoo -->
+        <!-- falta un dropdown q me dirija a notas.php -->
+
+    <div class="dropdown_content" style="margin-bottom: 50px;">
+                  <!-- <li><a href="">Home</a></li> -->
+                  <li style="height: 50px;">
+                    <a  id="lenguaje" class="listas">planificacion <img src="img/caret-down.svg" alt="" width="15"></a>
+                    <ul class="dropdown">
+                      <?php 
+                      $guardar = conseguirAnos($db);
+                    if (!empty($guardar)): ?>
+          <?php
+            while($guardado = mysqli_fetch_assoc($guardar)):?>
+            <li style="width: 100px; padding: 10px 15px;"> 
+              <a style="color: white;  " href="planificacion.php?id=<?=$guardado['id']?>"><?=$guardado['ano'].'||'. $guardado['seccion']?></a>
+            </li>
+                
+        <?php endwhile;
+        endif; ?>
+                    
+                    </ul>
+                </li>
+              </div>
+   
+      
         <div class="container">
             <div class="squares square1">
                 <div id="content">
@@ -134,16 +156,37 @@ require_once 'templeat/header.php';
                         </div>
                     </div>
                 </div>
-        </div>
-
+                
+     
+            
+                  
+            </div>
+            
+            <div class="dropdown_content" style="margin-bottom: 50px;">
+                  <!-- <li><a href="">Home</a></li> -->
+                  <li style="height: 50px;">
+                    <a  id="lenguaje" class="listas">Registrar nota <img src="img/caret-down.svg" alt="" width="15"></a>
+                    <ul class="dropdown">
+                      <?php 
+                      $guardar = conseguirAnos($db);
+                    if (!empty($guardar)): ?>
+          <?php
+            while($guardado = mysqli_fetch_assoc($guardar)):?>
+            <li style="width: 100px; padding: 10px 15px;"> 
+              <a style="color: white;  " href="notas.php?id=<?=$guardado['id']?>"><?=$guardado['ano'].'||'. $guardado['seccion']?></a>
+            </li>
+                
+        <?php endwhile;
+        endif; ?>
 
             
     </main>
+    <!--iconos de los años -->
     <script src="https://kit.fontawesome.com/5818af7131.js" crossorigin="anonymous"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+     <!--footer -->                               
     <script src="https://kit.fontawesome.com/5818af7131.js" crossorigin="anonymous"></script>
     <?php
+    
   include_once 'templeat/footer.php';
   ?>
 

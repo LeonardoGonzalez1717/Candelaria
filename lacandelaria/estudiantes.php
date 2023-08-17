@@ -1,14 +1,19 @@
 <?php
 require_once 'templeat/header.php';
+
+if (!isset($_SESSION['usuario_admin']) && !isset($_SESSION['usuario_lector'])) {
+    $_SESSION['alertas'] = 'Por favor introducir un usuario';
+    header('location: login_form.php');
+}
 if (isset($_GET['id'])) {
     $codigo = $_GET['id'];
      $sql = "select * from ano a inner join seccion s on a.id_seccion = s.id where a.id = $codigo;";
       $guardar = mysqli_query($db, $sql); 
 }
 
-if (isset($_SESSION['eliminado'])) : ?>
+if (isset($_SESSION['eliminado']['exito'])) : ?>
   <div class="alert alert-success" role="alert">
-  <?php echo $_SESSION['eliminado'] ?>
+  <?php echo $_SESSION['eliminado']['exito'] ?>
 </div>
 <?php elseif(isset($_SESSION['eliminado']['error'])): ?>
     <div class="alert alert-warning" role="alert">
@@ -31,7 +36,8 @@ if (isset($_SESSION['eliminado'])) : ?>
       <input class="form-control me-2" type="buscar" aria-label="Search"  name="buscador">
       <button class="btn btn-success bi bi-search" type="submit"></button>
   </form>
-
+<main>
+    
 <div class="container mt-2" style="height: 500px;  position: relative;">
 <div class="ayuda">
     
@@ -74,12 +80,14 @@ if (isset($_SESSION['eliminado'])) : ?>
                             <tbody>
                         
                                 <?php
+                                 $periodo = $_SESSION['periodos']['id'];
+                               
                                     if (isset($codigo)){
                                                                 
-                                            $alumnos = ConseguirTodosEstudiantes($db, $codigo);
+                                            $alumnos = ConseguirTodosEstudiantes($db, $codigo, $periodo);
 
                                                 }elseif(!isset($codigo)){ 
-                                            $alumnos = ConseguirTodosEstudiantes($db);
+                                            $alumnos = ConseguirTodosEstudiantes($db, null, $periodo);
                                                         
                                                 }
                                             if (!empty($alumnos)):
@@ -93,9 +101,9 @@ if (isset($_SESSION['eliminado'])) : ?>
                                     <td><?= $alumno['ano']?></td> 
                                     <td><?= $alumno['seccion'] ?></td> 
                                     <td><?= $alumno['periodo'] ?></td> 
-                                    <td><a  title="Editar" class="text-success" href="editar_form.php?codigo=<?=$alumno['id_alumno'] ?>"><i class="bi bi-pencil-square"></a></i>
-                                    <a title="Eliminar Estudiante" onclick="return confirm('Estas seguro de eliminar?');" class="text-danger" href="eliminar.php?codigo=<?=$alumno['id_cu']?>"><i class="bi bi-trash3"></i>
-                                    <a title="Ver Nota" class="text-success" href="ver_nota.php?codigo=<?=$alumno['id_alumno'] ?>"><i class="bi bi-archive-fill"></i></a>
+                                    <td><a  title="Editar" class="text-success" href="editar_form.php?codigo=<?=$alumno['id_alumno']?>"><i class="bi bi-pencil-square"></a></i>
+                                    <a title="Eliminar Estudiante" onclick="return confirm('Estas seguro de eliminar?');" class="text-danger" href="eliminar.php?codigo=<?=$alumno['id_alumno']?>&ano=<?=$codigo?>"><i class="bi bi-trash3"></i>
+                                    <a title="Ver Nota" class="text-success" href="notas_general.php?alumno=<?=$alumno['id_alumno']?>&ano=<?=$alumno['id_ano'] ?>"><i class="bi bi-archive-fill"></i></a>
                                     </td> 
                                 </tr>
                             
@@ -114,6 +122,7 @@ if (isset($_SESSION['eliminado'])) : ?>
         </div>
     </div>  
 </div>
+</main>
 
 <?php
 include_once 'templeat/footer.php'; 
