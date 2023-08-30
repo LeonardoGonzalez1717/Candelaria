@@ -11,10 +11,10 @@ if (isset($_GET['alumno']) && isset($_GET['pensum'])) {
     
     
 
-    $sql = "select n.*, a.nombre, a.apellido, m.materia from notas n inner join alumno a on a.id = n.id_alumno inner join pensum p on p.id = n.id_pensum inner join materia m on m.id = p.id_materia where id_alumno = $id_alumno and n.id_pensum = $pensum";
+    $sql = "select a.nombre, a.apellido, a.id, m.materia from notas n inner join alumno a on a.id = n.id_alumno inner join pensum p on p.id = n.id_pensum inner join materia m on m.id = p.id_materia where n.id_alumno = $id_alumno and n.id_pensum = $pensum";
     $guardar = mysqli_query($db, $sql);
     
-    $guardado = mysqli_fetch_assoc($guardar);
+    $estudiante_guardado = mysqli_fetch_assoc($guardar);
   
 
       
@@ -29,8 +29,8 @@ if (isset($_GET['alumno']) && isset($_GET['pensum'])) {
         <div class="col-md-12">
             <div class="card hola">
                 <div class="card-header" style="position: sticky; top: 0; background-color: white;">
-                <?php if(!empty($guardado)): ?>
-                    Listado de notas de <?=$guardado['nombre'].' '.$guardado['apellido'].'/'. $guardado['materia']?> 
+                <?php if(!empty($estudiante_guardado)): ?>
+                    Listado de notas de <?=$estudiante_guardado['nombre'].' '.$estudiante_guardado['apellido'].'/'. $estudiante_guardado['materia']?> 
                 <?php else: ?>
                     No hay notas para mostrar
                     <?php endif; ?>
@@ -41,10 +41,10 @@ if (isset($_GET['alumno']) && isset($_GET['pensum'])) {
                         <table class="table align-middle ">
                             <thead>
                                 <tr>
-                                    <th scope="col"> Notas</th>
-                                     
+                                    <th scope="col">Notas</th>
                                     <th scope="col">Nota final</th>
                                     <th scope="col">Lapso</th>
+                                    
                                    
                                     
                                 </tr>
@@ -52,7 +52,7 @@ if (isset($_GET['alumno']) && isset($_GET['pensum'])) {
                             <tbody>
                                 
                                 <?php           
-                                    
+                                    //saca el promedio de la materia
                                     $alumnos = ConseguirNotas($db, $id_alumno, $pensum);
                                     if (!empty($alumnos)):
                                     while($alumno = mysqli_fetch_assoc($alumnos)):
@@ -62,8 +62,9 @@ if (isset($_GET['alumno']) && isset($_GET['pensum'])) {
                                 
                                     <tr class="">
                                         
-                                        <?php 
-                                        $sql = "select nota from notas where id_alumno = $id_alumno and id_pensum = $pensum and lapso = $lapso ";
+                                        <?php
+                                        //saca las notas especificas por materia 
+                                        $sql = "select nota from notas where id_alumno = $id_alumno and id_pensum = $pensum and lapso = $lapso";
                                         $notas = mysqli_query($db, $sql);
                                         if (!empty($notas)) {
                                             
@@ -82,6 +83,7 @@ if (isset($_GET['alumno']) && isset($_GET['pensum'])) {
                                         ?>
                                     <td><?= $promedio?></td>
                                     <td><?= $alumno['lapso'] ?></td> 
+
                                     </tr>
                                     <?php
                             endwhile;

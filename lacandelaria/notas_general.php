@@ -76,9 +76,17 @@ if (isset($_GET['alumno'])) {
                                         <td><?= $promedios_final?></td>
                                         <td><a title="Notas detalladas" class="text-success" href="notas_estudiantes.php?alumno=<?=$id_alumno?>&pensum=<?=$guardado['id_pensum'] ?>"><i class="bi bi-archive-fill"></i></a></td>
                                     </tr>
-                             <?php } ?>
+                             <?php }?> 
                             </tbody>
                         </table>
+                             <?php $sql = "SELECT DISTINCT lapso FROM `notas` where id_alumno = $id_alumno";
+                             $boletines = mysqli_query($db, $sql);
+
+                             while($boletin = mysqli_fetch_assoc($boletines)):
+                             ?>
+                                        <a href="boletin.php?lapso=<?=$boletin['lapso']?>&alumno=<?=$id_alumno?>"> Crear boletin lapso <?=$boletin['lapso']?></a>
+                                        <br>
+                                <?php endwhile;?>
                     </div>
             
                  </div>

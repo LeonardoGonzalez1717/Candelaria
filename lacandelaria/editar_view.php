@@ -12,22 +12,28 @@ $alertas = array();
 
 if (!empty($codigo) && !empty($ano)) {  
     if (isset($_POST["Nombre"]) && !is_numeric($_POST["Nombre"]) && !preg_match("/[0-9]/", $_POST["Nombre"])) {
-        $Nombre= $_POST["Nombre"];
+        $Nombre= trim($_POST["Nombre"]);
         $nombre_escapado =  mysqli_real_escape_string($db, $Nombre);
     }else {
         $alertas['nombre'] = 'El nombre debe  llevar unicamente letras';
     }
     if (isset($_POST["apellido"]) && !is_numeric($_POST["apellido"]) && !preg_match("/[0-9]/", $_POST["apellido"])) {
-        $apellido = $_POST["apellido"];
+        $apellido = trim($_POST["apellido"]);
         $apellido_escapado =  mysqli_real_escape_string($db, $apellido);
     }else {
         $alertas['apellido'] = 'El apellido debe  llevar unicamente letras';
     }
     if (isset($_POST["cedula"]) && is_numeric($_POST["cedula"]) && !preg_match("/[a-zA-Z]/", $_POST["cedula"])) {
-        $cedula= $_POST["cedula"];
+        $cedula= trim($_POST["cedula"]);
         $cedula_escapado =  mysqli_real_escape_string($db, $cedula);
     }else{
         $alertas['cedula'] = 'Cedula invalida';
+    }
+    if (isset($_POST["edad"]) && is_numeric($_POST["edad"]) && !preg_match("/[a-zA-Z]/", $_POST["edad"])) {
+        $edad=trim($_POST["edad"]);
+        $edad_escapado =  mysqli_real_escape_string($db, $edad);
+    }else{
+        $alertas['edad'] = 'edad invalida';
     }
     if (isset($_POST["ano"]) && is_numeric($_POST["ano"]) && !preg_match("/[a-zA-Z]/", $_POST["ano"])) {
         $ano= $_POST["ano"];
@@ -39,7 +45,7 @@ if (!empty($codigo) && !empty($ano)) {
 
     if (count($alertas) == 0) {
         
-        $sql = "UPDATE cursando join alumno on cursando.id_alumno = alumno.id SET alumno.nombre = '$nombre_escapado', alumno.apellido = '$apellido_escapado', alumno.cedula = '$cedula', alumno.edad = '$edad', cursando.id_ano = '$ano' where cursando.id_cu = $codigo;";
+        $sql = "UPDATE cursando join alumno on cursando.id_alumno = alumno.id SET alumno.nombre = '$nombre_escapado', alumno.apellido = '$apellido_escapado', alumno.cedula = '$cedula', alumno.edad = '$edad_escapado', cursando.id_ano = '$ano' where cursando.id_cu = $codigo;";
         $guardar = mysqli_query($db, $sql);
         if ($guardar == true) {
             $_SESSION['guardado']['exito'] = 'Usuario editado con exito';

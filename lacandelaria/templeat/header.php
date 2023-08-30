@@ -22,6 +22,8 @@ session_start();
     <link rel="stylesheet" type="text/css" href="css/styles3.css">
     <script src="https://kit.fontawesome.com/5818af7131.js" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" type="text/css" href="css/boton2.css"> -->
+    <!--Jquery-->
+    <script language="javascript" src="jquery.js"></script>
    
     
 </head>
@@ -59,6 +61,10 @@ session_start();
                 <li><a class="listas" href="administrar_E.php">Administrar Alumnos</a></li>
                 <?php endif; ?>
                 <li><a class="listas" href="periodos.php">Periodos</a></li>
+                <?php if(isset($_SESSION['usuario_admin'])): ?>
+                <li><a class="listas" href="planificacion.php">Planificacion</a></li>
+                <?php endif; ?>
+                <li><a class="listas" href="notas.php">Registro de notas</a></li>
             
                 
                 

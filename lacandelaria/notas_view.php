@@ -11,8 +11,7 @@ if (isset($_POST['materia']) && isset($_POST['ano']) && isset($_POST['lapso'])) 
     $ano = $_POST['ano'];
     $materia = $_POST['materia'];  
     $lapso = $_POST['lapso'];
-    $url = "notas.php";
-    $url .="?id=" . urlencode($ano);
+ 
    
    
     
@@ -38,10 +37,15 @@ if (isset($_POST['materia']) && isset($_POST['ano']) && isset($_POST['lapso'])) 
 
     if (empty($plan)) {
         $_SESSION['alerta']['plan'] = 'Por favor realizar la planificacion de esta materia ';
-        header('location: '.$url);
+        header('location: notas.php ');
         exit();
     }
- }
+ }else{
+    $_SESSION['alerta']['plan'] = 'los campos no deben estar vacios';
+    header('location: notas.php');
+    exit();
+}
+
 
 
 ?>
@@ -132,7 +136,7 @@ if (isset($_POST['materia']) && isset($_POST['ano']) && isset($_POST['lapso'])) 
                                                     
                                                             $i++;
                                                     
-                                                                echo '<input type="number" maxlength="5" name="nota'. $i .'" value="'.$nota['nota'].'">';
+                                                                echo '<input type="number" maxlength="5" min="0" max="20" name="nota'. $i .'" value="'.$nota['nota'].'">';
                                                                 echo '<input type="hidden" value="'.$nota['id'].'" name="idnota'.$i.'">';
                                                                 
     

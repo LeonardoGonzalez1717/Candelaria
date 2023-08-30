@@ -55,8 +55,8 @@ if (isset($_POST['periodo_nuevo'])){
         
         $id_ano = $_POST['ano'];
         $id_materia = $_POST['materia'];
-        $url = "planificacion.php";
-        $url .= "?id=" . urldecode($id_ano);
+        var_dump($id_materia);
+        
 
 
         if (is_numeric($_POST['lapso']) && !preg_match("/[a-zA-Z]/", $_POST['lapso']) ) {
@@ -72,24 +72,32 @@ if (isset($_POST['periodo_nuevo'])){
 
             
         }else{
-            $alertas['evaluacion'] = 'Evaluacion invalida';
+            $alertas['evaluacion'] = 'Cantidad invalida';
         }
-
-
-        if (count($alertas) == 0){
-            var_dump($id_ano);
-            $sql = "insert into planificacion values(null, '$id_materia', '$id_ano', '$evaluaciones', '$lapso_escapado', '$periodo')";
-            $guardar = mysqli_query($db, $sql);
-            if ($guardar) {
-                $_SESSION['guardado'] = 'Guardado exitosamente';
-                header('Location:' . $url);
-                
+        
+        
+        
+        if(count($alertas) == 0){
+            $sqlE = "select * from planificacion where id_materia = '$id_materia' and id_ano = '$id_ano' and lapso = '$lapso' and periodo = '$periodo'";
+            $guardarE = mysqli_query($db, $sqlE); 
+            if ($guardarE == true && mysqli_num_rows($guardarE) == 1) {
+                $_SESSION['alerta'] = 'La planificacion de esta materia ya existe';
+                header('location: planificacion.php');
             }else{
-                echo 'error4';
+
+                $sql = "insert into planificacion values(null, '$id_materia', '$id_ano', '$evaluaciones', '$lapso_escapado', '$periodo')";
+                $guardar = mysqli_query($db, $sql);
+                if ($guardar) {
+                    $_SESSION['guardado'] = 'Guardado exitosamente';
+                    header('Location: planificacion.php');
+                    
+                }else{
+                    echo 'error4';
+                }
             }
         }else{
             $_SESSION['alertas'] = $alertas;
-            header('Location:' . $url);
+            header('Location: planificacion.php');
             
            
         }

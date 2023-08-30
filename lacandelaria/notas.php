@@ -3,39 +3,52 @@ if (!isset($_SESSION['usuario_admin']) && !isset($_SESSION['usuario_lector'])) {
     $_SESSION['alertas'] = 'Por favor introducir un usuario';
     header('location: login_form.php');
 }
-if (isset($_GET['id'])) {
-    //trae las materias que trae el año
-    $codigo = $_GET['id'];
-    $sql = "select p.id, p.id_ano, p.id_materia, m.materia from pensum p inner join materia m on p.id_materia = m.id where p.id_ano = $codigo";
-    $guardar = mysqli_query($db, $sql);
-}
+
+$query = "SELECT ano.id, ano.ano, seccion.seccion FROM ano left join seccion on seccion.id = ano.id_seccion";
+$resultado= mysqli_query($db, $query);
 
 if (isset($_SESSION['alerta']['plan'])): ?>
     <div class="alert alert-danger" role="alert">
     <?php echo $_SESSION['alerta']['plan']; ?>
   </div>
-  
-<?php   endif;?>
+<?php endif;?>
+<script language="javascript">
+			$(document).ready(function(){
+				$("#cbx_ano").change(function () {
+					$("#cbx_ano option:selected").each(function () {
+						id_ano = $(this).val();
+                        console.log(id_ano);
+						$.post("getMateria.php", { id_ano: id_ano }, function(data){
+							$("#cbx_materia").html(data);
+						});            
+					});
+				})
+			});
+
+		</script>
 <h2>Registro de notas</h2>
     <form method="POST" action='notas_view.php' id="register">
-        <label for="first-name">Seleccionar la materia
-        <select name="materia" id="" class="select">
-                                        <?php 
-                                        if(!empty($guardar)):
-                                            while ($guardado = mysqli_fetch_assoc($guardar)):
-                                        ?>
-                                            <option value="<?=$guardado['id_materia']?>"><?=$guardado['materia']?></option>`
+        <label for="first-name">Año
+        <select name="ano" id="cbx_ano" class="select">
+        <option value="0">Seleccionar Año</option>
+             <?php 
+            if(!empty($resultado)):
+                 while ($row = mysqli_fetch_assoc($resultado)):
+             ?>
+                <option value="<?=$row['id']?>"><?=$row['ano'].' '. $row['seccion']?></option>`
                                             
-                                            <?php 
-                                        endwhile;
-                                    endif;
-                                    ?>
-                                        </select>
+                <?php 
+            endwhile;
+        endif;
+        ?>
+             </select>
         </label>
             
        
        
-        </label>
+    <label for="">Materias
+         <select name="materia" id="cbx_materia" class="select"></select>
+    </label>
 
         <label for="age">Lapso   
             <select name="lapso" class="select">
@@ -46,7 +59,7 @@ if (isset($_SESSION['alerta']['plan'])): ?>
         
         </label>
         
-                                    <input type="hidden" name="ano" value="<?=$codigo?>">
+            
             <input type="submit" value="Registrar" id="submitForm" />
            
     </form> 

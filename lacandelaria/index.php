@@ -5,32 +5,7 @@ if (!isset($_SESSION['usuario_admin']) && !isset($_SESSION['usuario_lector'])) {
     header('location: login_form.php');
 }
 ?>
-    <main>
-        <!-- momentaneoo -->
-        <!-- falta un dropdown q me dirija a notas.php -->
-
-    <div class="dropdown_content" style="margin-bottom: 50px;">
-                  <!-- <li><a href="">Home</a></li> -->
-                  <li style="height: 50px;">
-                    <a  id="lenguaje" class="listas">planificacion <img src="img/caret-down.svg" alt="" width="15"></a>
-                    <ul class="dropdown">
-                      <?php 
-                      $guardar = conseguirAnos($db);
-                    if (!empty($guardar)): ?>
-          <?php
-            while($guardado = mysqli_fetch_assoc($guardar)):?>
-            <li style="width: 100px; padding: 10px 15px;"> 
-              <a style="color: white;  " href="planificacion.php?id=<?=$guardado['id']?>"><?=$guardado['ano'].'||'. $guardado['seccion']?></a>
-            </li>
-                
-        <?php endwhile;
-        endif; ?>
-                    
-                    </ul>
-                </li>
-              </div>
-   
-      
+    <main>  
         <div class="container">
             <div class="squares square1">
                 <div id="content">
@@ -162,23 +137,7 @@ if (!isset($_SESSION['usuario_admin']) && !isset($_SESSION['usuario_lector'])) {
                   
             </div>
             
-            <div class="dropdown_content" style="margin-bottom: 50px;">
-                  <!-- <li><a href="">Home</a></li> -->
-                  <li style="height: 50px;">
-                    <a  id="lenguaje" class="listas">Registrar nota <img src="img/caret-down.svg" alt="" width="15"></a>
-                    <ul class="dropdown">
-                      <?php 
-                      $guardar = conseguirAnos($db);
-                    if (!empty($guardar)): ?>
-          <?php
-            while($guardado = mysqli_fetch_assoc($guardar)):?>
-            <li style="width: 100px; padding: 10px 15px;"> 
-              <a style="color: white;  " href="notas.php?id=<?=$guardado['id']?>"><?=$guardado['ano'].'||'. $guardado['seccion']?></a>
-            </li>
-                
-        <?php endwhile;
-        endif; ?>
-
+           
             
     </main>
     <!--iconos de los años -->

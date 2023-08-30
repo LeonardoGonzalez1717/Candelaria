@@ -28,6 +28,7 @@ if (!empty($_POST["cargo"]) && !empty($_POST["password"]) && !empty($_POST['nomb
         $password_escapado = mysqli_escape_string($db, $password);
         //encriptado
         $encode = base64_encode($password_escapado);
+        var_dump($encode);
     }else{
         $alertas['password'] = 'Por favor introducir una password valida';
         
@@ -54,6 +55,7 @@ if (!empty($_POST["cargo"]) && !empty($_POST["password"]) && !empty($_POST['nomb
     }
 }else{
     $_SESSION['alertas'] = $alertas;
+         header('location: login_form.php');
 }
 }else{
     $_SESSION['alerta'] = 'Error al iniciar sesion';
