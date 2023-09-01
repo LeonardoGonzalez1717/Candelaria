@@ -19,7 +19,7 @@ session_start();
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> 
     <link rel="stylesheet" type="text/css" href="css/tabla4.css">
-    <link rel="stylesheet" type="text/css" href="css/styles3.css">
+    <link rel="stylesheet" type="text/css" href="css/styles4.css">
     <script src="https://kit.fontawesome.com/5818af7131.js" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" type="text/css" href="css/boton2.css"> -->
     <!--Jquery-->
@@ -30,7 +30,18 @@ session_start();
 <body >
     
         <header>
-            <h1>U.E.P A.P.E.P "La Candelaria"  <?=$_SESSION['periodos']['periodo']  ?></h1>
+            <h1>U.E.P A.P.E.P "La Candelaria"  
+
+            
+
+            <?php $sql = "select * from periodo order by periodo desc";
+            $periodo = mysqli_query($db, $sql);
+            while($periodos = mysqli_fetch_assoc($periodo)){
+                ?>
+                    <a href="periodos_view.php?periodo=<?=$periodos['id']?>"><?=$periodos['periodo']?></a>   
+                    <?php } ?>
+                
+            </h1>
             <?php if(isset($_SESSION['usuario_admin'])): ?>
                 <p>Bienvenido <?=$_SESSION['usuario_admin']['nombre']?></p>
             <?php else: ?>

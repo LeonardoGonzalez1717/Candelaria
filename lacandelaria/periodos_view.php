@@ -33,10 +33,10 @@ if (isset($_POST['periodo_nuevo'])){
             header('location: periodos.php');
     }
 
-}elseif(isset($_POST['periodo'])){
+}elseif(isset($_GET['periodo'])){
     //periodo
 
-    $periodo_id = $_POST['periodo'];
+    $periodo_id = $_GET['periodo'];
 
     $sql = "select * from periodo where id = $periodo_id";
     $guardar = mysqli_query($db, $sql);

@@ -94,7 +94,7 @@ if (isset($_SESSION['eliminado']['exito'])) : ?>
                                         while($alumno = mysqli_fetch_assoc($alumnos)):    
                                 ?>
                                 <tr class="">
-                                    <td scope="row"><?= $alumno['id_cu'] ?></td>
+                                    <td scope="row"><?= $alumno['id_alumno'] ?></td>
                                     <td><?= $alumno['nombre']?></td>
                                     <td><?= $alumno['apellido'] ?></td>
                                     <td><?= $alumno['cedula'] ?></td>

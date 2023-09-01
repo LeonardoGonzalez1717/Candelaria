@@ -23,22 +23,7 @@ if (!isset($_SESSION['usuario_admin']) && !isset($_SESSION['usuario_lector'])) {
         </label>
         <input type="submit"  value="Enviar">
     </form>
-
-    <h2>Periodo que desea utilizar</h2>
-    <form method="POST" action='periodos_view.php' id="register">
-    <td>
-        <select name="periodo" class="select">
-
-            <?php $sql = "select * from periodo order by periodo desc";
-            $periodo = mysqli_query($db, $sql);
-             while($periodos = mysqli_fetch_assoc($periodo)){
-                 ?>
-                    <option value="<?=$periodos['id']?>"><?=$periodos['periodo']?></option>   
-                    <?php } ?>
-                </select>
-    </td>
-        <input type="submit" name="periodo_sesion" value="Enviar">
-    </form>    
+  
 <?php 
 borrarErrores();
 require_once 'templeat/footer.php';

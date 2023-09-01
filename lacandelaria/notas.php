@@ -25,7 +25,7 @@ if (isset($_SESSION['alerta']['plan'])): ?>
 				})
 			});
 
-		</script>
+</script>
 <h2>Registro de notas</h2>
     <form method="POST" action='notas_view.php' id="register">
         <label for="first-name">Año

@@ -174,7 +174,7 @@ function conseguirAno($conexion, $ero = null, $do = null, $tro= null, $to = null
         }
 
         function ConseguirNotas($conexion, $id_alumno, $pensum){
-            $sql = "select avg(n.nota) as promedio, n.lapso from notas n inner join pensum p on p.id = n.id_pensum inner join materia m on p.id_materia = m.id where n.id_alumno = $id_alumno and n.id_pensum = $pensum group by n.lapso, n.id_pensum";
+            $sql = "select avg(n.nota) as promedio, n.lapso, m.materia from notas n inner join pensum p on p.id = n.id_pensum inner join materia m on p.id_materia = m.id where n.id_alumno = $id_alumno and n.id_pensum = $pensum group by n.lapso, n.id_pensum";
             $guardar = mysqli_query($conexion, $sql);
             $resultado = array();
             

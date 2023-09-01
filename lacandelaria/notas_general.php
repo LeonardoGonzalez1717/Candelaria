@@ -21,7 +21,7 @@ if (isset($_GET['alumno'])) {
     echo 'no existe';
 }
 ?>
-<div class="container mt-2" style="height: 500px;  position: relative;">
+<div class="container container-notas mt-2">
 <div class="ayuda">
     
     <div class="row justify-content-center">
@@ -68,6 +68,7 @@ if (isset($_GET['alumno'])) {
                                             if (!empty($promedios)) {
                                             while($promedio = mysqli_fetch_assoc($promedios)){
                                                 $promedios_total[] = $promedio['promedio'];
+                                              
                                                 $promedios_final = array_sum($promedios_total)/count($promedios_total);
                                             } 
                                         }
@@ -79,22 +80,35 @@ if (isset($_GET['alumno'])) {
                              <?php }?> 
                             </tbody>
                         </table>
-                             <?php $sql = "SELECT DISTINCT lapso FROM `notas` where id_alumno = $id_alumno";
-                             $boletines = mysqli_query($db, $sql);
 
-                             while($boletin = mysqli_fetch_assoc($boletines)):
-                             ?>
-                                        <a href="boletin.php?lapso=<?=$boletin['lapso']?>&alumno=<?=$id_alumno?>"> Crear boletin lapso <?=$boletin['lapso']?></a>
-                                        <br>
-                                <?php endwhile;?>
                     </div>
+                </div>
+            </div>
             
-                 </div>
-             </div>
         
             </div>
         </div>
     </div>  
+
+                              <div class="btn-crear">
+
+                                      <?php $sql = "SELECT DISTINCT lapso FROM `notas` where id_alumno = $id_alumno order by lapso";
+                                         $boletines = mysqli_query($db, $sql);
+                                         $boletin_count = mysqli_num_rows($boletines);
+                                         
+                                         
+                                         while($boletin = mysqli_fetch_assoc($boletines)):
+                                             ?>
+                                                     <a href="boletin.php?lapso=<?=$boletin['lapso']?>&alumno=<?=$id_alumno?>"> Crear boletin lapso <?=$boletin['lapso']?></a>
+                                                     
+                                                     <?php 
+                                             
+                                         endwhile;
+                                         if ($boletin_count == 3):?>
+                                             <a href="boletin.php?alumno=<?=$id_alumno?>">Crear boletin</a>
+                                             <?php endif; 
+                                             ?>
+                                </div>
 </div>
 
 
